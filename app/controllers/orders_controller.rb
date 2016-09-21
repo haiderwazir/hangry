@@ -21,11 +21,9 @@ class OrdersController < ApplicationController
 
     @order.add_item(params['item_id'], params['flavor'])
     
-
     respond_to do |format|
       format.js
     end
-
   end
 
   def users
@@ -46,8 +44,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  
-
   def remove_item
     @order = current_user.orders.find(params['order_id'])
     @order.remove_item(params['item_id'])
@@ -55,7 +51,6 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.js 
     end
-
   end
 
   def reorder
@@ -85,7 +80,6 @@ class OrdersController < ApplicationController
   def today
     @orders= Order.where(created_at: (Time.now - 24.hours)..Time.now).desc(:created_at)
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

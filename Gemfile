@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use Puma as the app server
@@ -18,7 +17,7 @@ gem 'mongoid', '~> 6.0.0.rc0'
 gem 'devise'
 gem 'money-rails'
 
-gem "mongoid-paperclip"
+gem 'mongoid-paperclip'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

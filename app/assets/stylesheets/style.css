@@ -808,7 +808,7 @@ footer a:hover {
 .prevOrder {
 	border: 1px solid #370000;
 	border-radius: 50px;
-	height: 235px;
+	height: 290px;
 	color: #370000;
 	margin: 10px;
 	font-weight: bold;
@@ -874,5 +874,24 @@ button:hover {
 }
 
 .prevOrderIn{
-	height: 100px;
+	height: 110px;
+}
+
+.prevOrderSmall{
+	margin-top: 20px;
+}
+
+.importDiv {
+	margin-top: 25px;
+	}
+
+.importDiv button
+{
+	font-size:16px;
+	background-color: #370000;
+	color:white;
+}
+
+.importDiv input {
+	width:200px;
 }

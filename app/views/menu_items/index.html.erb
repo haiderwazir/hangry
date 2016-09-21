@@ -3,7 +3,7 @@
     <p id="notice"><%= notice %></p>
 
     <div class="grid_12" style="text-align: center !important">
-      <% if User.last.is_moo? == true %>
+      <% if current_user.is_moo? == true %>
         <div class= "optionsDiv"> 
           <%= link_to 'Add Item', new_menu_item_path %>
         </div>
@@ -15,7 +15,13 @@
         </div>
         <div class= "optionsDiv"> 
           <%= link_to 'Item Stats', "/menu_items/today" %>
-        </div>   
+        </div> 
+        <div class= "importDiv"> 
+          <form type="GET" action="/menu_items/import">
+            <input type="file" name="file" required>
+            <button type="submit">Import Menu!</button>
+          </form>
+         </div>  
       <% else %>
         <div class= "optionsDiv"> 
           <%= link_to "My Orders", orders_path %>
@@ -40,7 +46,7 @@
       <div  id="tab-1" class="tab-content gallery1">
         <% @menu_items.each do |menu_item| %>
           <div class="grid_3">
-            <% if User.last.is_moo? == true %>
+            <% if current_user.is_moo? == true %>
               <a href="menu_items/<%= menu_item.id %>" class="gal"><img src="<%= menu_item.picture %>" alt=""><span></span></a>
               <div class="col2"><span class="col3"><a href="#"></a></span><%= menu_item.name %> <%= menu_item.price.format %></div>
               <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

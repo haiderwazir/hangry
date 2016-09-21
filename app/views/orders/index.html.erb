@@ -3,7 +3,7 @@
     <p id="notice"><%= notice %></p>
 
     <div class="grid_12" style="text-align: center !important">
-      <% if User.last.is_moo? == true %>
+      <% if current_user.is_moo? == true %>
         <div class= "optionsDiv"> 
           <%= link_to "Recent Orders", "/orders/today" %>
         </div>
@@ -19,7 +19,7 @@
         </div>
       <% end %>
       <div class= "optionsDiv"> 
-        <% link_name=  User.last.is_moo?? "Menu" : "New Order" %>
+        <% link_name=  current_user.is_moo?? "Menu" : "New Order" %>
         <%= link_to link_name, menu_items_path %>
       </div>
       <h3 class="head2"><% if @user == current_user %>My <% reorder_text = "Reorder!"%> <% else %> <%= @user.name%>'s <% reorder_text = "Order This!"%><% end %>  Orders</h3>
@@ -39,10 +39,10 @@
       <div  id="tab-1" class="tab-content gallery1">
         <% @orders.each do |order| %>
           <div class="grid_3">
-            <div class ="alCenter"><%= order.created_at.to_date%></div>
+            <div class ="alCenter"><b><%= order.created_at.to_date%></b></div>
             <div class="prevOrder"><div class="prevOrderIn"><a class="gal gal2"><% order.order_items.each do |i|%><%= i.menu_item.name %>(<%= i.flavor %>)<br><%end%></a></div>
-            <div class="prevOrderIn"><img src="<%= order.order_items.first.menu_item.picture %>"></div></div>
-            <div class="col2"><%= order.get_price.format %>|<%= link_to reorder_text , reorder_order_path(order) %></div>
+            <div class="prevOrderIn"><img src="<%= order.order_items.first.menu_item.picture %>"></div>
+            <div class="prevOrderSmall"><%= order.get_price.format %>|<%= link_to reorder_text , reorder_order_path(order) %></div></div>
           </div>
         <% end %>
       </div>

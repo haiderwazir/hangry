@@ -13,7 +13,6 @@ class Order
   scope :placed, ->{where(is_placed?: true)}
 
 
-
   def get_price
   	self.order_items.sum(&:price)
 	end 

@@ -1,24 +1,10 @@
-# README
+Light-weight and modern feeling application for hangry developer!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version : ruby 2.3.1p112
 
-Things you may want to cover:
+* Database creation : run 'rake db:seed' to create the MOO's account ("lily@hangry.com", "testtest"). Uses Mongodb so will need mongod server running.
 
-* Ruby version
+* test suite : N/A
 
-* System dependencies
+* Can import menu from CSVs. One such CSV included
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
