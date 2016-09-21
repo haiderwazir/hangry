@@ -20,10 +20,10 @@ class MenuItem
   has_many :order_items, :dependent => :destroy
 
   def self.import_items(file)
-  	CSV.foreach(file,{:headers=>:first_row}) do |row|
-  		arr = [row[4], row[5], row[6], row[7], row[8]] 
-  		self.create! name: row[0], description: row[1], price: row[2], picture: row[3], flavors: arr
-  	end
+    CSV.foreach(file,{:headers=>:first_row}) do |row|
+      arr = [row[4], row[5], row[6], row[7], row[8]] 
+      self.create! name: row[0], description: row[1], price: row[2], picture: row[3], flavors: arr
+    end
   end
 
 end

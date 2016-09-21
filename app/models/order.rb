@@ -27,16 +27,15 @@ class Order
 
   def remove_item(item_id)
   	OrderItem.find(item_id).delete
-    # @order.items.delete_at(@order.items.index(@item.name) || @order.items.length)
     self.delete! if self.order_items.count == 0
-	end
+  end
 
-	def self.reorder(order,user)
+  def self.reorder(order,user)
 		@new_order = user.orders.create is_placed?:true
     order.order_items.each do |item|
-      new_item = item.clone
-      new_item.order = @new_order
-      new_item.save!
+    new_item = item.clone
+    new_item.order = @new_order
+    new_item.save!
     end
   end
 
