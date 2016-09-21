@@ -1,0 +1,17 @@
+<h2> Your Current Order </h2>
+<p>
+  <% @order.order_items.each do |item| %>
+	  <%= item.menu_item.name %>(<%= item.flavor%>)
+	  <i class="fa fa-times remove_from_order" id= '<%= item.id %>' aria-hidden="true"></i> <br>
+  <% end %>
+</p>
+<input type="hidden" id="order_id" value="<%= @order.id rescue nil%>">
+
+<p>
+  <strong>Total:</strong>
+  <%= @order.get_price.format %>
+</p>
+
+<button id="confirm_order" style="margin-bottom:20px" >Confirm Order</button>
+<a data-confirm="Are you sure?" data-method="delete" href="/orders/<%= @order.id %>" rel="nofollow">Cancel</a>
+

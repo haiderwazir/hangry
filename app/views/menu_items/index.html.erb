@@ -1,0 +1,58 @@
+<div class="content">
+  <div class="container_12">
+    <p id="notice"><%= notice %></p>
+
+    <div class="grid_12" style="text-align: center !important">
+      <% if User.last.is_moo? == true %>
+        <div class= "optionsDiv"> 
+          <%= link_to 'Add Item', new_menu_item_path %>
+        </div>
+        <div class= "optionsDiv"> 
+          <%= link_to "Recent Orders", "/orders/today" %>
+        </div>
+        <div class= "optionsDiv"> 
+          <%= link_to 'HD List', "/orders/users" %>
+        </div>
+        <div class= "optionsDiv"> 
+          <%= link_to 'Item Stats', "/menu_items/today" %>
+        </div>   
+      <% else %>
+        <div class= "optionsDiv"> 
+          <%= link_to "My Orders", orders_path %>
+        </div>  
+        <div class= "optionsDiv"> 
+          <%= link_to 'Other HDs', "/orders/users" %>
+        </div>
+      <% end %>
+      <h3 class="head2">Our Menu</h3>
+    </div>
+
+    <div class="tabs tb gallery">
+      <div class="div-nav  ">
+        <div class="grid_12">
+          <ul class="nav">
+            <li class="selected"><a href="#tab-1" class=""></a></li>
+          </ul>
+        </div>    
+      </div>
+      
+     <div class="div-tabs">
+      <div  id="tab-1" class="tab-content gallery1">
+        <% @menu_items.each do |menu_item| %>
+          <div class="grid_3">
+            <% if User.last.is_moo? == true %>
+              <a href="menu_items/<%= menu_item.id %>" class="gal"><img src="<%= menu_item.picture %>" alt=""><span></span></a>
+              <div class="col2"><span class="col3"><a href="#"></a></span><%= menu_item.name %> <%= menu_item.price.format %></div>
+              <td><%= link_to 'Destroy', menu_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% else %>
+              <a class="gal add_to_order" id= '<%=menu_item.id%>'><img src="<%= menu_item.picture %>" alt=""><span></span></a>
+              <select id="flavor-<%=menu_item.id%>"><option value="random">Random!</option><%menu_item.flavors.each do |f|%><option value="<%= f %>"><%=f %></option><% end %></select>
+              <div class="col2"><span class="col3"><a href="#"></a></span><%= menu_item.name %> <%= menu_item.price.format %></div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+     </div>
+    </div>
+  </div>
+</div>

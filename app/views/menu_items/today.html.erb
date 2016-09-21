@@ -1,0 +1,38 @@
+<div class="content">
+  <div class="container_12">
+    <p id="notice"><%= notice %></p>
+
+    <div class="grid_12" style="text-align: center !important">
+        <div class= "optionsDiv"> 
+          <%= link_to "Recent Orders", "/orders/today" %>
+        </div>
+        <div class= "optionsDiv"> 
+          <%= link_to 'HD List', "/orders/users" %>
+        </div>
+      <div class= "optionsDiv"> 
+        <%= link_to "Menu", menu_items_path %>
+      </div>
+      <h3 class="head2">Items ordered last 24hrs</h3>
+    </div>
+
+     <div class="tabs tb gallery">
+      <div class="div-nav  ">
+        <div class="grid_12">
+          <ul class="nav">
+            <li class="selected"><a href="#tab-1" class=""></a></li>
+          </ul>
+        </div>    
+      </div>
+
+     <div class="div-tabs">
+      <div  id="tab-1" class="tab-content gallery1">
+        <% MenuItem.each do |item| %>
+          <div class="grid_3">
+            <a href="/menu_items/<%= item.id %>" class="gal"><div class="prevOrder"><%= item.name %><br><div class="itemNumber"><%= item.order_items.where(created_at: (Time.now - 24.hours)..Time.now).count%></div></div></a>
+          </div>
+        <% end %>
+      </div>
+     </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="content">
+  <div class="container_12 ">
+    <p id="notice"><%= notice %></p>
+
+    <div class="grid_12" style="text-align: center !important">
+      <div class= "optionsDiv"> 
+        <%= link_to "Recent Orders", "/orders/today" %>
+      </div>
+      <div class= "optionsDiv"> 
+        <%= link_to 'Item Stats', "/menu_items/today" %>
+      </div>   
+      <div class= "optionsDiv"> 
+        <%= link_to "Menu", menu_items_path %>
+      </div>
+      <h3 class="head2">Developers List</h3>
+
+	    <% @users.each do |user| %>
+				    <a href="/orders/user?user_id=<%=user.id%>"><div class="userName"><%= user.name %></div></a>
+	    <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="content">
+  <div class="container_12">
+    <p id="notice"><%= notice %></p>
+
+    
+
+    <div class="grid_12">
+      <% if User.last.is_moo? == true %>
+        <div class= "optionsDiv"> 
+          <%= link_to 'Add Item', new_menu_item_path %>
+        </div>
+      <% end %>
+      <div class= "optionsDiv"> 
+          <%= link_to 'Other HDs', "/orders/users" %>
+        </div>
+      <h3 class="head2">Add Item</h3>
+    </div>  
+
+		<%= render 'form', menu_item: @menu_item %>
+
+		<%= link_to 'Back', menu_items_path %>
+
+	</div>
+</div>
