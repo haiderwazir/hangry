@@ -15,9 +15,9 @@ class Order
 
   def get_price
     self.order_items.sum(&:price)
-	end 
+  end 
 
-	def add_item(item_id, flavor)
+  def add_item(item_id, flavor)
 	  @new_item= MenuItem.find(item_id)
 	  flavor= @new_item.flavors.sample if flavor == "random"
     @new_order_item = self.order_items.new price: @new_item.price, flavor: flavor
