@@ -18,8 +18,8 @@ class Order
   end 
 
   def add_item(item_id, flavor)
-	  @new_item= MenuItem.find(item_id)
-	  flavor= @new_item.flavors.sample if flavor == "random"
+    @new_item= MenuItem.find(item_id)
+    flavor= @new_item.flavors.sample if flavor == "random"
     @new_order_item = self.order_items.new price: @new_item.price, flavor: flavor
     @new_order_item.menu_item = @new_item
     @new_order_item.save!
@@ -31,7 +31,7 @@ class Order
   end
 
   def self.reorder(order,user)
-	  @new_order = user.orders.create is_placed?:true
+    @new_order = user.orders.create is_placed?:true
     order.order_items.each do |item|
       new_item = item.clone
       new_item.order = @new_order
