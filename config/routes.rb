@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users , :controllers => { :registrations => 'users/registrations' } do
+  devise_for :users , defaults: { format: :json }, :controllers => { :registrations => 'users/registrations' } do
 	  get '/users/sign_out' => 'devise/sessions#destroy'
   end
   root 'menu_items#index'
@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     collection do
       post :remove_item
       post :confirm
-      get  :users
       get  :today
     end
     member do
@@ -21,4 +20,5 @@ Rails.application.routes.draw do
       get :import
     end
   end
+  resources :users
 end

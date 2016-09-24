@@ -2,20 +2,18 @@ class MenuItem
 	require 'CSV'
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Paperclip
   
   field :name, type: String
   field :description, type: String
+  field :pictureUrl, type: String
   field :price, type: Money
   field :filters, type: Array, default: []
   field :flavors, type: Array, default: []
 
-  has_mongoid_attached_file :picture
-  validates_attachment_content_type :picture, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   
   validates_presence_of :name
   validates_presence_of :price
-  validates_presence_of :picture
+  validates_presence_of :pictureUrl
 
   has_many :order_items, :dependent => :destroy
 
@@ -26,4 +24,11 @@ class MenuItem
     end
   end
 
+  def self.get_today
+    menu_items= Array.new
+    MenuItem.each do |item|
+      menu_items << {name: item.name, times_ordered: item.order_items.where(created_at: (Time.now - 24.hours)..Time.now).count}
+    end
+    menu_items.to_json
+  end
 end

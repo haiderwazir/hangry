@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user_from_token!
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy, :reorder]
+
+  
 
   # GET /orders
   # GET /orders.json
@@ -8,6 +11,8 @@ class OrdersController < ApplicationController
     @user= User.find(params['user_id']) rescue nil
     @user ||= current_user
     @orders = @user.orders.placed.desc(:created_at)
+
+    respond_with @orders, status: 200
   end
 
   # POST /orders
@@ -20,65 +25,51 @@ class OrdersController < ApplicationController
     end
 
     @order.add_item(params['item_id'], params['flavor'])
-    
-    respond_to do |format|
-      format.js
-    end
+
+    respond_with @order, status: 200
   end
 
-  def users
-    @users= User.all
-  end
 
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
+    @order.update(order_params)
+    
+    respond_with @order, status: 200
   end
 
   def remove_item
     @order = current_user.orders.find(params['order_id'])
     @order.remove_item(params['item_id'])
 
-    respond_to do |format|
-      format.js 
-    end
+    respond_with @order
   end
 
   def reorder
     Order.reorder(@order, current_user)
 
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order Successfully Placed!' }
-    end
+    respond_with @order, status: 200
   end
 
   def confirm
     @order = current_user.orders.find(params['order_id'])
     @order.confirm
     
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order Successfully Placed!' }
-    end
+    respond_with @order
   end
 
   def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to menu_items_url, notice: 'Order Cancelled!' }
+    if @order.destroy
+      render :json => {:message => 'Order successfully deleted!'}, status: 200
+    else
+      render :json => {:error => 'Internal Server Error', :message => 'Order could not be deleted.'}, status: 500
     end
   end
 
   def today
     @orders= Order.where(created_at: (Time.now - 24.hours)..Time.now).desc(:created_at)
+
+    respond_with @orders, status: 200
   end
 
   private
